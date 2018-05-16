@@ -1,41 +1,32 @@
 <?xml version='1.0'?>
-
-<robot name="myrobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-
-
+<robot name="myrobot" 
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
   <xacro:include filename="$(find mybot_description)/urdf/mybot.gazebo" />
   <xacro:include filename="$(find mybot_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find mybot_description)/urdf/macros.xacro" />
-
-
+  
+  <!--
+    Chassis
+  -->
   <link name='chassis'>
     <pose>0 0 0.1 0 0 0</pose>
-
     <inertial>
       <mass value="10.0"/>
       <origin xyz="0.0 0 0.1" rpy=" 0 0 0"/>
-      <inertia
-          ixx="0.5" ixy="0" ixz="0"
-          iyy="1.0" iyz="0"
-          izz="0.1"
-      />
+      <inertia ixx="0.5" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="0.1" />
     </inertial>
-
     <collision name='collision'>
       <geometry>
         <box size=".4 .2 .1"/>
       </geometry>
     </collision>
-
     <visual name='chassis_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <box size=".4 .2 .1"/>
       </geometry>
     </visual>
-
-
     <collision name='caster_collision'>
       <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
@@ -52,7 +43,6 @@
         </friction>
       </surface>
     </collision>
-
     <visual name='caster_visual'>
       <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
       <geometry>
@@ -61,7 +51,9 @@
     </visual>
   </link>
 
-
+  <!--
+    Roda esquerda
+  -->
   <link name="left_wheel">
     <!--origin xyz="0.1 0.13 0.1" rpy="0 1.5707 1.5707"/-->
     <collision name="collision">
@@ -80,13 +72,12 @@
       <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
       <mass value="5"/>
       <cylinder_inertia m="5" r="0.1" h="0.05"/>
-      <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
   </link>
-
+  <!--
+    Roda direita
+  -->
   <link name="right_wheel">
     <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
     <collision name="collision">
@@ -105,14 +96,12 @@
       <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
       <mass value="5"/>
       <cylinder_inertia m="5" r="0.1" h="0.05"/>
-      <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
   </link>
-
-
+  <!--
+    Junta Roda esquerda
+  -->
   <joint type="continuous" name="left_wheel_hinge">
     <origin xyz="0.1 0.15 0" rpy="0 0 0"/>
     <child link="left_wheel"/>
@@ -121,7 +110,9 @@
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-
+  <!--
+    Junta Roda direita
+  -->
   <joint type="continuous" name="right_wheel_hinge">
     <origin xyz="0.1 -0.15 0" rpy="0 0 0"/>
     <child link="right_wheel"/>
@@ -130,8 +121,4 @@
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-
-
-
-
 </robot>
